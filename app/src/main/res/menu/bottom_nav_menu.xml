@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Ana Sayfa" />
+
+    <item
+        android:id="@+id/myCoursesFragment"
+        android:icon="@drawable/baseline_work_24"
+        android:title="Kurslarım" />
+
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/baseline_account_circle_24"
+        android:title="Profil" />
+</menu>
