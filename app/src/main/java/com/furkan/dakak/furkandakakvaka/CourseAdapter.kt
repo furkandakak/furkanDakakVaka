@@ -9,15 +9,13 @@ import com.furkan.dakak.furkandakakvaka.databinding.ItemCourseBinding
 class CourseAdapter(
     private var courses: List<String>,
     private val onEnrollClick: (String) -> Unit,
-    private val onItemClick: (String) -> Unit // Tıklama ile video oynatma
+    private val onItemClick: (String) -> Unit
 ) : RecyclerView.Adapter<CourseAdapter.CourseViewHolder>() {
 
-    /**
-     * Verileri günceller ve RecyclerView'ı yeniden çizer.
-     */
+   
     fun updateData(newCourses: List<String>) {
         courses = newCourses
-        notifyDataSetChanged() // Tüm verileri güncelle
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseViewHolder {
@@ -31,25 +29,18 @@ class CourseAdapter(
 
     override fun onBindViewHolder(holder: CourseViewHolder, position: Int) {
         val courseUrl = courses[position]
-        holder.bind(courseUrl) // Tıklanan URL'yi holder'a ilet
+        holder.bind(courseUrl)
     }
 
     override fun getItemCount(): Int = courses.size
 
-    /**
-     * Her bir öğe için ViewHolder.
-     */
     inner class CourseViewHolder(private val binding: ItemCourseBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        /**
-         * Tıklama işlemleri ve URL atanması.
-         */
+ 
         fun bind(courseUrl: String) {
-            // Log ile kontrol edelim
             Log.d("CourseAdapter", "Binding URL: $courseUrl at position $bindingAdapterPosition")
 
-            // Her kurs için başlık ve tıklama işlemi
             binding.tvCourseUrl.text = "${bindingAdapterPosition + 1}. Video"
             binding.btnEnroll.setOnClickListener {
                 Log.d("CourseAdapter", "Enroll clicked for URL: $courseUrl")
