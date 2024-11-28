@@ -27,12 +27,10 @@ class ProfileFragment : Fragment() {
 
         sessionManager = SessionManager(requireContext())
 
-        // Kullanıcı e-posta bilgisini göster
         val userEmail = sessionManager.getUserEmail()
         binding.tvEmail.text = userEmail ?: "No Email"
 
         binding.btnLogout.setOnClickListener {
-            // Çıkış yap ve login ekranına yönlendir
             sessionManager.logout()
             findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
         }
