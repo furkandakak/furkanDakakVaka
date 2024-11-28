@@ -17,21 +17,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Initialize SessionManager
         sessionManager = SessionManager(this)
 
-        // Find NavHostFragment
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        // Initialize BottomNavigationView
         bottomNavigationView = findViewById(R.id.bottom_navigation)
 
-        // Manage BottomNavigationView Visibility
         manageBottomNavigationVisibility()
 
-        // Manual Navigation for BottomNavigationView
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.homeFragment -> {
@@ -58,7 +53,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Restrict Fragment Access Based on Login State
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (!sessionManager.isLoggedIn() && destination.id != R.id.loginFragment) {
                 navController.navigate(R.id.loginFragment)
@@ -66,11 +60,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Disable back navigation to previous fragment.
-     */
     override fun onBackPressed() {
-        // If the current fragment is not LoginFragment, do nothing
         if (navController.currentDestination?.id == R.id.loginFragment) {
             super.onBackPressed()
         } else {
@@ -78,9 +68,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Show or hide BottomNavigationView based on login state.
-     */
     fun manageBottomNavigationVisibility() {
         if (sessionManager.isLoggedIn()) {
             bottomNavigationView.visibility = BottomNavigationView.VISIBLE
