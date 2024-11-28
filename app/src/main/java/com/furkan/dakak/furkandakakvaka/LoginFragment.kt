@@ -27,18 +27,16 @@ class LoginFragment : Fragment() {
 
         sessionManager = SessionManager(requireContext())
 
-        // Eğer kullanıcı zaten giriş yaptıysa, doğrudan HomeFragment'e yönlendir
         if (sessionManager.isLoggedIn()) {
             findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
             return
         }
 
-        // BottomNavigationView'in görünürlüğünü güncelle
         (activity as MainActivity).manageBottomNavigationVisibility()
 
         binding.btnLogin.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
-            val password = binding.etPassword.text.toString().trim() // Şifre alanı
+            val password = binding.etPassword.text.toString().trim()
 
             if (email.isEmpty()) {
                 binding.etEmail.error = "Please enter a valid email"
@@ -50,13 +48,10 @@ class LoginFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            // Kullanıcı giriş bilgilerini kaydet
             sessionManager.saveLogin(email)
 
-            // BottomNavigationView görünümünü güncelle
             (activity as MainActivity).manageBottomNavigationVisibility()
 
-            // Ana sayfaya yönlendir
             findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
         }
     }
