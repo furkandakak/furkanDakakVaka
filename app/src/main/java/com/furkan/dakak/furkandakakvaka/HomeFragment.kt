@@ -44,7 +44,6 @@ class HomeFragment : Fragment() {
 
         sessionManager = SessionManager(requireContext())
 
-        // Veritabanı ve ViewModel başlatma
         val database = AppDatabase.getInstance(requireContext())
         val repository = CourseRepository(database.courseDao())
         val factory = ViewModelFactory(repository)
@@ -54,13 +53,11 @@ class HomeFragment : Fragment() {
         binding.playerView.player = exoPlayer
 
         val adapter = CourseAdapter(courseUrls, onEnrollClick = { courseUrl ->
-            // Kayıt işlemi
             val userId = sessionManager.getUserEmail() ?: return@CourseAdapter
             val course = Course(userId = userId, courseUrl = courseUrl)
             viewModel.addCourse(course)
             Toast.makeText(requireContext(), "Course enrolled!", Toast.LENGTH_SHORT).show()
         }, onItemClick = { courseUrl ->
-            // Video oynatma
             playVideo(courseUrl)
         })
 
