@@ -37,11 +37,9 @@ class MyCoursesFragment : Fragment() {
 
         sessionManager = SessionManager(requireContext())
 
-        // ExoPlayer başlatma
         exoPlayer = ExoPlayer.Builder(requireContext()).build()
-        binding.playerView.player = exoPlayer // PlayerView'e ExoPlayer'ı bağlama
+        binding.playerView.player = exoPlayer
 
-        // Veritabanı ve ViewModel başlatma
         val database = AppDatabase.getInstance(requireContext())
         val repository = CourseRepository(database.courseDao())
         val factory = ViewModelFactory(repository)
@@ -49,9 +47,9 @@ class MyCoursesFragment : Fragment() {
 
         val adapter = CourseAdapter(
             courses = emptyList(),
-            onEnrollClick = {}, // Kullanılmıyor
+            onEnrollClick = {},
             onItemClick = { courseUrl ->
-                playVideo(courseUrl) // Video oynatma
+                playVideo(courseUrl)
             }
         )
 
@@ -74,22 +72,19 @@ class MyCoursesFragment : Fragment() {
         }
     }
 
-    /**
-     * Seçilen videoyu ExoPlayer ile oynatır.
-     */
     private fun playVideo(courseUrl: String) {
-        binding.playerView.visibility = View.VISIBLE // PlayerView'i görünür yap
-        val mediaItem = MediaItem.fromUri(courseUrl) // Video için MediaItem oluştur
+        binding.playerView.visibility = View.VISIBLE
+        val mediaItem = MediaItem.fromUri(courseUrl)
         exoPlayer?.apply {
-            setMediaItem(mediaItem) // MediaItem'i ExoPlayer'a yükle
-            prepare() // ExoPlayer'ı hazırla
-            play() // Videoyu başlat
+            setMediaItem(mediaItem)
+            prepare()
+            play()
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        exoPlayer?.release() // ExoPlayer'ı serbest bırak
+        exoPlayer?.release()
         exoPlayer = null
         _binding = null
     }
